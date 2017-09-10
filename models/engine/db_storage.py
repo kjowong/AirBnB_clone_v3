@@ -41,7 +41,8 @@ class DBStorage:
         if cls:
             obj_class = self.__session.query(self.CNC.get(cls)).all()
             for item in obj_class:
-                obj_dict[item.id] = item
+                obj_format = "{}.{}".format(type(item).__name__, item.id)
+                obj_dict[obj_format] = item
             return obj_dict
         for class_name in self.CNC:
             if class_name == 'BaseModel':
@@ -49,7 +50,8 @@ class DBStorage:
             obj_class = self.__session.query(
                 self.CNC.get(class_name)).all()
             for item in obj_class:
-                obj_dict[item.id] = item
+                obj_format = "{}.{}".format(type(item).__name__, item.id)
+                obj_dict[obj_format] = item
         return obj_dict
 
     def new(self, obj):
