@@ -95,6 +95,7 @@ github repo
 * David John Coleman II, [davidjohncoleman.com](http://www.davidjohncoleman.com/)
 * Kimberly Wong, [kjowong](http://github.com/kjowong) | [@kjowong](http://twitter.com/kjowong) | [kjowong@gmail.com](kjowong@gmail.com)
 * Carrie Ybay, [hicarrie](http://github.com/hicarrie) | [@hicarrie_](http://twitter.com/hicarrie_)
+* Kristen Loyd, [@KRLoyd](https://github.com/KRLoyd)  | [@@Biebop1](http://twitter.com/Biebop1)
 
 ## License
 
