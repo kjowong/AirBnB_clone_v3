@@ -10,3 +10,8 @@ app = Flask(__name__)
 @app_views.route("/status")
 def status_message():
     return jsonify({"status": "OK"})
+
+
+@app_views.route("/api/v1/stats")
+def count_classes():
+
