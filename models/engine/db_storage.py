@@ -87,7 +87,8 @@ class DBStorage:
             cls: string representing the class name
             id: string representing the object ID
         """
-        return self.all(cls).get(id)
+        obj_key = "{}.{}".format(cls, id)
+        return self.all(cls).get(obj_key)
 
     def count(self, cls=None):
         """

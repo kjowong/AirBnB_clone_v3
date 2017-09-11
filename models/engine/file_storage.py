@@ -33,7 +33,7 @@ class FileStorage:
         if cls:
             objects_dict = {}
             for class_id, obj in FileStorage.__objects.items():
-                if type(obj).__name__ == cls:
+                if obj.__class__.__name__ == cls:
                     objects_dict[class_id] = obj
             return objects_dict
         return FileStorage.__objects
@@ -84,8 +84,8 @@ class FileStorage:
             cls: string representating the class name
             id: string representating the object ID
         """
-        cls_obj_str = "{}".format(id)
-        return self.all(cls).get(cls_obj_str)
+        obj_key = "{}.{}".format(cls, id)
+        return self.all(cls).get(obj_key)
 
     def count(self, cls=None):
         """
