@@ -19,6 +19,7 @@ def count_classes():
     """
         Method to return a jsonified dictionary of stats.
     """
+    # To prettify later: condense
     # Get the count of each Class
     amenities_count = storage.count('Amenity')
     cities_count = storage.count('City')
