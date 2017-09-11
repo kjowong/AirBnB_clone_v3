@@ -74,7 +74,7 @@ def create_a_state():
     if not json_data:
         return jsonify({"message": "Not a JSON"}), 400
     name = json_data.get("name")
-    if name not in json_data:
+    if name is None:
         return jsonify({"message": "Missing name"}), 400
     # Create new State instance with data
     new_state = State(**json_data)
