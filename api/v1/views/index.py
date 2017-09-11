@@ -10,14 +10,16 @@ app = Flask(__name__)
 
 @app_views.route("/status")
 def status_message():
-    """method to return an OK status"""
+    """
+        method to return an OK status
+    """
     return jsonify({"status": "OK"})
 
 
 @app_views.route("/stats")
 def count_classes():
     """
-        Method to return a jsonified dictionary of stats.
+        method to return a jsonified dictionary of stats.
     """
     # To prettify later: condense
     # Get the count of each Class
