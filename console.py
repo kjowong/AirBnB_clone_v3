@@ -228,8 +228,9 @@ class HBNBCommand(cmd.Cmd):
             file_storage_objs = storage.all()
             for k in file_storage_objs.keys():
                 if arg[1] in k and arg[0] in k:
-                    del file_storage_objs[k]
-                    storage.save()
+                    delete_obj = file_storage_objs[k]
+            delete_obj.delete()
+            storage.save()
 
     def __rreplace(self, s, l):
         for c in l:
