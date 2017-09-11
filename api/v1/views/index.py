@@ -22,16 +22,16 @@ def count_classes():
         method to return a jsonified dictionary of stats.
     """
     class_dict = {
-        'Amenity': amenity.Amenity,
-        'City': city.City,
-        'Place': place.Place,
-        'Review': review.Review,
-        'State': state.State,
-        'User': user.User
+        'Amenity': "amenities",
+        'City': "cities",
+        'Place': "places",
+        'Review': "reviews",
+        'State': "states",
+        'User': "users"
     }
     # Create dictionary
     stat_dict = {}
     # Add to the dictionary
     for key, value in class_dict.items():
-        stat_dict[key] = storage.count(key)
+        stat_dict[value] = storage.count(key)
     return jsonify(stat_dict)
