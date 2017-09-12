@@ -14,7 +14,7 @@ def status_message():
     return jsonify({"status": "OK"})
 
 
-@app_views.route("/api/v1/stats")
+@app_views.route("/stats")
 def count_classes():
     """
         Method to return a jsonified dictionary of stats.
