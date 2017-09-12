@@ -22,3 +22,10 @@ def handle_teardown(self):
 
 if __name__ == "__main__":
     app.run(HBNB_API_HOST, HBNB_API_PORT)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+        Method to handle 404 errors
+    """
+    return jsonify({"error": "Not found"})
