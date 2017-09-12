@@ -80,3 +80,21 @@ class DBStorage:
             calls remove() on private session attribute (self.session)
         """
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+            method to retrieve one object
+            cls: string representing the class name
+            id: string representing the object ID
+        """
+        obj_key = "{}.{}".format(cls, id)
+        return self.all(cls).get(obj_key)
+
+    def count(self, cls=None):
+        """
+            a method to count the number of objects in storage
+            cls: string representing the class name
+        """
+        if cls:
+            return len(list(self.all(cls)))
+        return len(list(self.all(cls)))

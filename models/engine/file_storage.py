@@ -33,7 +33,7 @@ class FileStorage:
         if cls:
             objects_dict = {}
             for class_id, obj in FileStorage.__objects.items():
-                if type(obj).__name__ == cls:
+                if obj.__class__.__name__ == cls:
                     objects_dict[class_id] = obj
             return objects_dict
         return FileStorage.__objects
@@ -77,3 +77,21 @@ class FileStorage:
             calls the reload() method for deserialization from JSON to objects
         """
         self.reload()
+
+    def get(self, cls, id):
+        """
+            a method to retrieve one object
+            cls: string representating the class name
+            id: string representating the object ID
+        """
+        obj_key = "{}.{}".format(cls, id)
+        return self.all(cls).get(obj_key)
+
+    def count(self, cls=None):
+        """
+            a method to count the number of objects in storage
+            cls: string representing the class name
+        """
+        if cls:
+            return len(list(self.all(cls)))
+        return len(list(self.all()))
