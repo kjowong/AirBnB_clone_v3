@@ -68,6 +68,17 @@ class TestFileStorageDocs(unittest.TestCase):
         actual = FileStorage.reload.__doc__
         self.assertEqual(expected, actual)
 
+    def test_doc_get(self):
+        """... documentation for get function"""
+        expected = "\n            a method to retrieve one object\n            cls: string representating the class name\n            id: string representating the object ID\n        "
+        actual = FileStorage.get.__doc__
+        self.assertEqual(expected, actual)
+
+    def test_doc_count(self):
+        """... documentation for count function"""
+        expected = "\n            a method to count the number of objects in storage\n            cls: string representing the class name\n        "
+        actual = FileStorage.count.__doc__
+        self.assertEqual(expected, actual)
 
 @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
 class TestBmFsInstances(unittest.TestCase):
@@ -147,7 +158,23 @@ class TestBmFsInstances(unittest.TestCase):
                     actual = 1
         self.assertTrue(1 == actual)
 
+    def test_bm_get(self):
+        """... checks if get() works with BaseModel"""
+        test_class = self.bm_obj.__class__.__name__
+        test_id = self.bm_obj.id
+        test_obj = self.bm_obj
+        result_get = storage.get(test_class, test_id)
+        self.assertTrue(test_obj, result_get)
 
+    def test_db_count(self):
+        """...checks if count() works with BaseModel"""
+        first_count = storage.count('BaseModel')
+        self.bm_obj2 = BaseModel()
+        self.bm_obj2.save()
+        second_count = storage.count('BaseModel')
+        self.assertTrue(first_count + 1, second_count)
+
+@unittest.skipIf(storage_type == 'db', 'skip if environ is db')
 class TestUserFsInstances(unittest.TestCase):
     """testing for class instances"""
 
@@ -163,14 +190,14 @@ class TestUserFsInstances(unittest.TestCase):
         self.user = User()
         self.bm_obj = BaseModel()
 
-    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+#    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_storage_file_exists(self):
         """... checks proper FileStorage instantiation"""
         os.remove(F)
         self.user.save()
         self.assertTrue(os.path.isfile(F))
 
-    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+#    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_obj_saved_to_file(self):
         """... checks proper FileStorage instantiation"""
         os.remove(F)
@@ -184,7 +211,7 @@ class TestUserFsInstances(unittest.TestCase):
                 actual = 1
         self.assertTrue(1 == actual)
 
-    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
+#    @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
     def test_reload(self):
         """... checks proper usage of reload function"""
         os.remove(F)
