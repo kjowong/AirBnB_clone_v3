@@ -40,20 +40,26 @@ def get_a_state(state_id):
         abort(404)
     # State exists
     else:
+        # Return jsonified to_json'd state object
         return (jsonify(to_json(one_state)))
 
 
-# @app_views.route("/states/<string:state_id>", methods=['DELETE'])
-# def delete_a_state(state_id):
-#     """
-#         Method to delete a state
-#     """
-#     to_delete = storage.get("State", state_id)
-#     if to_delete is None:
-#         abort(404)
-#     else:
-#         storage.delete(to_delete)
-#         response = to_json({})
-#         response.status = 200
-#         return response
-
+@app_views.route("/states/<string:state_id>", methods=['DELETE'])
+def delete_a_state(state_id):
+    """
+        Method to delete a state
+    """
+    # Retrieve the State object to delete
+    to_delete = storage.get("State", state_id)
+    # If the State object doesn't exist, return 404 error
+    if to_delete is None:
+        abort(404)
+    else:
+        # Delete the State object
+        storage.delete(to_delete)
+        # Create response with an empty dictionary
+        response = jsonify({})
+        # Set response status code
+        response.status = 200
+        # return response
+        return response
