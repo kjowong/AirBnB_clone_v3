@@ -8,7 +8,7 @@ from models import storage
 app = Flask(__name__)
 
 
-@app_views.route("/status")
+@app_views.route("/status", strict_slashes=False)
 def status_message():
     """method to return an OK status"""
     return jsonify({"status": "OK"})
