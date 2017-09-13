@@ -19,8 +19,9 @@ def get_all_states():
         Method to return a JSON representation of all states
     """
     state_list = []
-    all_states = storage.all()
+    all_states = storage.all('State')
     for object in all_states.values():
+#        state_list.append(object.to_json())
         state_list.append(to_json(object))
     return (jsonify(state_list))
 
