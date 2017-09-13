@@ -19,7 +19,7 @@ def get_all_states():
     all_states = storage.all()
     return (to_json(all_states))
 
-@app_views.route("/states/<str:state_id>", methods=['GET'])
+@app_views.route("/states/<string:state_id>", methods=['GET'])
 def get_a_state():
     """
         Method to return a JSON representation of a state
@@ -30,7 +30,7 @@ def get_a_state():
     else:
         return (to_json(one_state))
 
-@app_views.route("/states/<str:state_id>", methods=['DELETE'])
+@app_views.route("/states/<string:state_id>", methods=['DELETE'])
 def delete_a_state():
     """
         Method to delete a state
