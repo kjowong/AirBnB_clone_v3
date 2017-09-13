@@ -8,7 +8,7 @@ from models import storage, amenity, city, place, review, state, user
 app = Flask(__name__)
 
 
-@app_views.route("/status", strict_slashes=False)
+@app_views.route("/status")
 def status_message():
     """
         method to return an OK status
