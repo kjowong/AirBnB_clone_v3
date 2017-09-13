@@ -9,7 +9,8 @@ from models.base_model import BaseModel
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
+# Not neede? -> 
+# app.url_map.strict_slashes = False
 to_json = BaseModel.to_json
 
 @app_views.route("/states", methods=['GET'])
@@ -17,8 +18,11 @@ def get_all_states():
     """
         Method to return a JSON representation of all states
     """
+    state_list = []
     all_states = storage.all()
-    return (to_json(all_states))
+    for object in all_states.values():
+        state_list.append(to_json(object))
+    return (jsonify(state_list))
 
 @app_views.route("/states/<string:state_id>", methods=['GET'])
 def get_a_state():
