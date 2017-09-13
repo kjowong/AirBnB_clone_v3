@@ -97,4 +97,4 @@ class DBStorage:
         """
         if cls:
             return len(list(self.all(cls)))
-        return len(list(self.all(cls)))
+        return len(list(self.all()))
