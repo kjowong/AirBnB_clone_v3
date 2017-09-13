@@ -7,10 +7,8 @@ from api.v1.views import app_views
 from models import storage
 from models.base_model import BaseModel
 
-
+# is this next line needed? we are never using app, only app_views
 app = Flask(__name__)
-# Not neede? -> 
-# app.url_map.strict_slashes = False
 to_json = BaseModel.to_json
 
 @app_views.route("/states", methods=['GET'])
@@ -21,7 +19,6 @@ def get_all_states():
     state_list = []
     all_states = storage.all('State')
     for object in all_states.values():
-#        state_list.append(object.to_json())
         state_list.append(to_json(object))
     return (jsonify(state_list))
 
