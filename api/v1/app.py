@@ -5,12 +5,11 @@
 from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
+import os
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 
-HBNB_API_HOST = "0.0.0.0"
-HBNB_API_PORT = "5000"
 
 @app.teardown_appcontext
 def handle_teardown(self):
@@ -34,4 +33,6 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(HBNB_API_HOST, HBNB_API_PORT)
+    host = os.getenv("HBNB_API_HOST", "0.0.0.0")
+    port = os.getenv("HBNB_API_PORT", "5000")
+    app.run(host, port)
