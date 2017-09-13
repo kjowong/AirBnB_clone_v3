@@ -70,15 +70,20 @@ def create_a_state():
     """
         Method to create a state
     """
-    if request.method == "POST":
-        json_data = request.get_json()
-        if not json_data:
-            return jsonify({"message": "Not a JSON"}), 400
-        if "name" not in json_data:
-            return jsonify({"message": "Missing name"}), 400
-        new_state = State(**json_data)
-        new_state.save()
-        json_state = new_state.to_json()
+    # Get data from request
+    json_data = request.get_json()
+    # Error out if no data or if no name provided
+    if not json_data:
+        return jsonify({"message": "Not a JSON"}), 400
+    if "name" not in json_data:
+        return jsonify({"message": "Missing name"}), 400
+    # Create new State instance with data
+    new_state = State(**json_data)
+    # Save new_state
+    new_state.save()
+    # Get the json dict of new_state
+    json_state = new_state.to_json()
+    # Return jsonified info with status 201
     return jsonify(json_state), 201
 
 
