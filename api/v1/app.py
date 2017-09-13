@@ -25,9 +25,13 @@ def page_not_found(e):
     """
         Method to handle 404 errors
     """
-    return jsonify({"error": "Not found"})
+    message = {
+        "error": "Not found"
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
+    return resp
+
 
 if __name__ == "__main__":
     app.run(HBNB_API_HOST, HBNB_API_PORT)
-
-

@@ -66,6 +66,17 @@ class TestDBStorageDocs(unittest.TestCase):
         actual = DBStorage.delete.__doc__
         self.assertEqual(expected, actual)
 
+    def test_doc_get(self):
+        """... documentation for get function"""
+        expected = '\n            method to retrieve one object\n            cls: string representing the class name\n            id: string representing the object ID\n        '
+        actual = DBStorage.get.__doc__
+        self.assertEqual(expected, actual)
+
+    def test_doc_count(self):
+        """...documentation for count function"""
+        expected = '\n            a method to count the number of objects in storage\n            cls: string representing the class name\n        '
+        actual = DBStorage.count.__doc__
+        self.assertEqual(expected, actual)
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestStateDBInstances(unittest.TestCase):
@@ -102,6 +113,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.assertTrue(exist_in_all_states)
 
     def test_state_delete(self):
+        """... checks if delete() works with a State object"""
         state_id = self.state.id
         storage.delete(self.state)
         self.state = None
@@ -112,6 +124,23 @@ class TestStateDBInstances(unittest.TestCase):
                 exist_in_all = True
         self.assertFalse(exist_in_all)
 
+    def test_state_get(self):
+        """...checks if get{} works with a State object"""
+        state_class = self.state.__class__.__name__
+        state_id = self.state.id
+#        state_obj_key = "{}.{}".format(state_class, state_id)
+        state_obj = self.state
+        result_get = storage.get(state_class, state_id)
+        self.assertTrue(state_obj, result_get)
+
+    def test_state_count(self):
+        """...checks if count() works with State objects"""
+        first_count = storage.count('State')
+        self.state2 = State()
+        self.state2.name = "Arizona"
+        self.state2.save()
+        second_count = storage.count('State')
+        self.assertTrue(first_count + 1, second_count)
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestUserDBInstances(unittest.TestCase):
