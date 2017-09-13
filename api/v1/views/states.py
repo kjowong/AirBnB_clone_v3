@@ -8,8 +8,6 @@ from models import storage
 from models.base_model import BaseModel
 from models.state import State
 
-# is this next line needed? we are never using app, only app_views
-app = Flask(__name__)
 to_json = BaseModel.to_json
 
 
