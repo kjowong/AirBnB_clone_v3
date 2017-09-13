@@ -102,11 +102,11 @@ def put_a_state(state_id):
     # Create list of keys we don't want updated
     ignore_keys = ['id', 'created_at', 'updated_at']
     # Loop through the json_data, update/add keys
-    for attribute, value in json_data.items():
+    for key, value in json_data.items():
         # Only update certain attributes
-        if attribute not in ignore_keys:
+        if key not in ignore_keys:
             # Update State object
-            setattr(one_state, attribute, value)
+            setattr(one_state, key, value)
     # Save the state
     one_state.save()
     # Call to_json on one_state
