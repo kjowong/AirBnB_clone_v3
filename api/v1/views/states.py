@@ -9,6 +9,7 @@ from models.base_model import BaseModel
 
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 to_json = BaseModel.to_json
 
 @app_views.route("/states", methods=['GET'])
