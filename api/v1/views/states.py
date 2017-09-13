@@ -80,3 +80,31 @@ def create_a_state():
         new_state.save()
         json_state = new_state.to_json()
     return jsonify(json_state), 201
+
+
+@app_views.route('/states/<string:state_id>', methods=['PUT'])
+def put_a_state(state_id):
+    # Retrieve the state
+    one_state = storage.get("State", state_id)
+    # Return with error if state doesn't exist
+    if one_state is None:
+        abort(404)
+    # Get dict of attributes in request
+    json_data = request.get_json()
+    # Check json_data
+    if not json_data:
+        return jsonify({"message": "Not a JSON"}), 400
+    # Create list of keys we don't want updated
+    ignore_keys = ['id', 'created_at', 'updated_at']
+    # Loop through the json_data, update/add keys
+    for attribute, value in json_data.items():
+        # Only update certain attributes
+        if attribute not in ignore_keys:
+            # Update State object
+            setattr(one_state, attribute, value)
+    # Save the state
+    one_state.save()
+    # Call to_json on one_state
+    json_state = one_state.to_json()
+    # Return jsonified json_state with status 200
+    return jsonify(json_state), 200
