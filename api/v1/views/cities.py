@@ -22,7 +22,7 @@ def get_all_cities(state_id):
         abort(404)
     cities_list = []
     for city in state.cities:
-        cities_list.append(to_json(city))
+        cities_list.append(city.to_json())
     return (jsonify(cities_list))
 
 
