@@ -59,10 +59,8 @@ def delete_a_state(state_id):
         storage.delete(to_delete)
         # Create response with an empty dictionary
         response = jsonify({})
-        # Set response status code
-        response.status = 200
         # return response
-        return response
+        return response, 200
 
 
 @app_views.route("/states", methods=['POST'])
