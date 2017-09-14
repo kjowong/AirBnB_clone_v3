@@ -48,9 +48,16 @@ def delete_a_place(place_id):
     """
         Method to delete a Place object
     """
+    # Retrieve the Place object
+    to_delete = storage.get("Place", place_id)
     # if Place doesn't exist, raise a 404 error
-    # Return empty dictionary with status code 200
-    pass
+    if not to_delete:
+        abort(404)
+    else:
+        # Delete the Place object
+        storage.delete(to_delete)
+        # Return empty dictionary with status code 200
+        return jsonify({}), 200
 
 
 @app_views.route('/cities/<string:city_id>/places', methods=['POST'])
