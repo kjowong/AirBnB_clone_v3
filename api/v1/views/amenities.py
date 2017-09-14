@@ -103,7 +103,7 @@ def put_an_amenity(amenity_id):
     json_data = request.get_json()
     # if HTTP request not valid JSON, raise 400 error
     if not json_data:
-        return jsonify({"message": "Not a JSON"})
+        return jsonify({"message": "Not a JSON"}), 400
     # Create list of keys we don't want updated
     ignore_keys = ['id', 'created_at', 'updated_at']
     # update Amenity obj with all key-value pairs of the dict
