@@ -25,21 +25,26 @@ def get_all_places(city_id):
     places_list = []
     # Get places from CIty object, add to places_list
     for place in city.places:
-        places_list.append(city.to_json())
+        places_list.append(place.to_json())
     return (jsonify(places_list))
 
 
 @app_views.route('/places/<string:place_id>', methods=['GET'])
-def get_a_place(city_id):
+def get_a_place(place_id):
     """
         Method to retrieve a Place object
     """
+    # Retrive the Place object
+    one_place = storage.get("Place", place_id)
     # if Place doesn't exist, raise a 404 error
-    pass
+    if one_place is None:
+        abort(404)
+    # Return the object
+    return (jsonify(one_place.to_json()))
 
 
 @app_views.route('/places/<string:place_id>', methods=['DELETE'])
-def delete_a_place(city_id):
+def delete_a_place(place_id):
     """
         Method to delete a Place object
     """
