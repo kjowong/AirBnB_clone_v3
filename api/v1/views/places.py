@@ -48,9 +48,16 @@ def delete_a_place(place_id):
     """
         Method to delete a Place object
     """
+    # Retrieve the Place object
+    to_delete = storage.get("Place", place_id)
     # if Place doesn't exist, raise a 404 error
-    # Return empty dictionary with status code 200
-    pass
+    if not to_delete:
+        abort(404)
+    else:
+        # Delete the Place object
+        storage.delete(to_delete)
+        # Return empty dictionary with status code 200
+        return jsonify({}), 200
 
 
 @app_views.route('/cities/<string:city_id>/places', methods=['POST'])
@@ -58,14 +65,38 @@ def post_a_place(city_id):
     """
         Method to create a Place object
     """
+
     # if City object doesn't exist, raise a 404 error
-    # use request.get_json() to transform HTTP request to a dictionary
-    # if HTTP request is not valid JSON, raise a 400 error with message "Not a JSON"
-    # if request doesn't contain key 'user_id', raise a 400 error with message "Missing user_id"
+    if not storage.get("City", city_id):
+        abort(404)
+    # Transform HTTP request to a dictionary
+    json_data = request.get_json()
+    # if HTTP request is not valid JSON, raise a 400 error
+    if not json_data:
+        return jsonify({"message": "Not a JSON"}), 400
+    # if request doesn't contain key 'user_id', raise a 400 error
+    user_id = json_data.get("user_id")
+    if not user_id:
+        return jsonify({"message": "Missing user_id"}), 400
     # if User doesn't exist, raise a 404 error
-    # if request doesn't contain key 'name', raise a 400 error with message "Missing name"
-    # Return new PLase with status code 201
-    pass
+    if not storage.get("User", user_id):
+        abort(404)
+    # if request doesn't contain key 'name', raise a 400 error
+    if not json_data.get("name"):
+        return jsonify({"message": "Missing name"}), 400
+    # Create a new_place_dict to hold all info for Place object
+    new_place_dict = {}
+    # Update new_place_dict with dictionary from request
+    new_place_dict.update(json_data)
+    # Add city_id to the dictionary
+    new_place_dict["city_id"] = city_id
+    # Create and save new Place object
+    new_place = Place(**new_place_dict)
+    new_place.save()
+    # to_json() the Place object
+    json_place = new_place.to_json()
+    # Return new Place with status code 201
+    return jsonify(json_place), 201
 
 
 @app_views.route('/places/<string:place_id>', methods=['PUT'])
@@ -74,9 +105,23 @@ def put_a_place(place_id):
         Method to update a Place object
     """
     # if Place object doesn't exist, raise a 404 error
-    # use request.get_json() to transform HTTP request to a dictionary
-    # if HTTP request body is not valid JSON, raise a 400 error with message "Not a JSON"
-    # Create dictionary of keys to not update
+    one_place = storage.get("Place", place_id)
+    if not one_place:
+        abort(404)
+    # Transform HTTP request to a dictionary
+    json_data = request.get_json()
+    # if HTTP request body is not valid JSON, raise a 400 error
+    if not json_data:
+        return jsonify({"message": "Not a JSON"}), 400
+    # Create list of keys to not update
+    ignore_keys = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
     # Update Place object, ignoring the keys in ignore_keys
+    for key, value in json_data.items():
+        if key not in ignore_keys:
+            setattr(one_place, key, value)
+    # Save Place object
+    one_place.save()
+    # to_json the Place object
+    json_place = one_place.to_json()
     # Return Place object with status code 200
-    pass
+    return jsonify(json_place), 200
