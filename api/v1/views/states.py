@@ -41,7 +41,7 @@ def get_a_state(state_id):
     # State exists
     else:
         # Return jsonified to_json'd state object
-        return (jsonify(to_json(one_state)))
+        return (jsonify(one_state.to_json()))
 
 
 @app_views.route("/states/<string:state_id>", methods=['DELETE'])
