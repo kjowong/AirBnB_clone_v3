@@ -2,8 +2,6 @@
 
 # AirBnB Clone Phase #3
 
-: python BaseModel Class, unittests, python CLI, & web static
-
 ## Description
 
 Project attempts to clone the the AirBnB application and website, including the
@@ -16,6 +14,62 @@ database, storage, RESTful API, Web Framework, and Front End.
 * __style:__ PEP 8 (v. 1.7.0)
 
 <img src="https://github.com/johncoleman83/AirBnB_clone/blob/master/dev/hbnb_step5.png" />
+
+## Console
+
+To run the console, clone this repository and run `./console.py`
+
+Once in the console, you will see the following:
+```
+.----------------------------.
+|    Welcome to hbnb CLI!    |
+|   for help, input 'help'   |
+|   for quit, input 'quit'   |
+.----------------------------.
+(hbnb)
+```
+
+Allowed commands can be shown by running `help`:
+```
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+Amenity    City  Place   State  airbnb  create   help  show  
+BaseModel  EOF   Review  User   all     destroy  quit  update
+```
+### Commands
+#### `airbnb`: Command to change the console prompt string.
+- Usage: `airbnb`
+#### `all`: Prints all objects of a given class
+- Usage: `all <class name>`
+#### `create`: Creates a new instance of a given class
+- Usage: `create <class name>`
+#### `destroy`: Destroys a specific instance of a class
+- Usage: `destroy <class name> <instance id>`
+#### `EOF`: Handles EOF, exits the console
+- Usage: `EOF`
+#### `help`
+- To list the available commands: `help`
+- To show details about a specific command: `help <command>`
+#### `quit`: Command to quit the program
+- Usage: `quit`
+#### `show`: Prints a secific class instance
+- Usage: `show <class name> <instance id>`
+#### `update`: Updates or adds a new attribute and value to a specific class instance
+- Usage: `update <class name> <instance id> <attribute name> <value of attribute>`
+
+#### Using Class Commands
+Each Class has various methods that can be run on an instance of that Class.
+
+The syntax to run Class methods is `<Class name>.<comand>(<instance id>)`.
+
+Classes available: `Amenity`, `BaseModel`, `City`, `Place`, `Review`, `State`, `User`
+
+Commands available:
+- `save`: Updates attribute "updated_at" to the current time, saves the instance
+- `to_json`: Returns JSON representation of the instance
+- `delete` : Deletes an instance from storage
 
 ## Testing
 
@@ -91,11 +145,11 @@ github repo
 
 ## Authors
 
-* MJ Johnson, [@mj31508](https://github.com/mj31508)
+* MJ Johnson, [mj31508](https://github.com/mj31508)
 * David John Coleman II, [davidjohncoleman.com](http://www.davidjohncoleman.com/)
 * Kimberly Wong, [kjowong](http://github.com/kjowong) | [@kjowong](http://twitter.com/kjowong) | [kjowong@gmail.com](kjowong@gmail.com)
 * Carrie Ybay, [hicarrie](http://github.com/hicarrie) | [@hicarrie_](http://twitter.com/hicarrie_)
-* Kristen Loyd, [@KRLoyd](https://github.com/KRLoyd)  | [@@Biebop1](http://twitter.com/Biebop1)
+* Kristen Loyd, [KRLoyd](https://github.com/KRLoyd)  | [@Biebop1](http://twitter.com/Biebop1)
 
 ## License
 
