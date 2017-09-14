@@ -68,15 +68,21 @@ class TestDBStorageDocs(unittest.TestCase):
 
     def test_doc_get(self):
         """... documentation for get function"""
-        expected = '\n            method to retrieve one object\n            cls: string representing the class name\n            id: string representing the object ID\n        '
+        expected = '\n            method to retrieve one object'
+        expected += '\n            cls: string representing the class name'
+        expected += '\n            id: string representing the object ID'
+        expected += '\n        '
         actual = DBStorage.get.__doc__
         self.assertEqual(expected, actual)
 
     def test_doc_count(self):
         """...documentation for count function"""
-        expected = '\n            a method to count the number of objects in storage\n            cls: string representing the class name\n        '
+        expected = '\n            a method to count the number of objects in '
+        expected += 'storage\n            '
+        expected += 'cls: string representing the class name\n        '
         actual = DBStorage.count.__doc__
         self.assertEqual(expected, actual)
+
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestStateDBInstances(unittest.TestCase):
@@ -141,6 +147,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.state2.save()
         second_count = storage.count('State')
         self.assertTrue(first_count + 1, second_count)
+
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
 class TestUserDBInstances(unittest.TestCase):
