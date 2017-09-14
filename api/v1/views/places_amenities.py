@@ -6,7 +6,7 @@ from flask import abort, Flask, jsonify, request
 from api.v1.views import app_views
 from models import storage
 from models.base_model import BaseModel
-from models.place import Place, PlaceAmenity
+from models.place import Place
 from models.amenity import Amenity
 
 to_json = BaseModel.to_json
