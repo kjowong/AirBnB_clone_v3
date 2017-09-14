@@ -134,10 +134,13 @@ class TestStateDBInstances(unittest.TestCase):
         """...checks if get{} works with a State object"""
         state_class = self.state.__class__.__name__
         state_id = self.state.id
-#        state_obj_key = "{}.{}".format(state_class, state_id)
         state_obj = self.state
         result_get = storage.get(state_class, state_id)
-        self.assertTrue(state_obj, result_get)
+        self.assertEqual(state_obj, result_get)
+        result_get_none_state = storage.get(None, state_id)
+        self.assertIsNone(result_get_none_state)
+        result_get_none_id = storage.get(state_class, None)
+        self.assertIsNone(result_get_none_id)
 
     def test_state_count(self):
         """...checks if count() works with State objects"""
@@ -146,7 +149,7 @@ class TestStateDBInstances(unittest.TestCase):
         self.state2.name = "Arizona"
         self.state2.save()
         second_count = storage.count('State')
-        self.assertTrue(first_count + 1, second_count)
+        self.assertEqual(first_count + 1, second_count)
 
 
 @unittest.skipIf(storage_type != 'db', 'skip if environ is not db')
