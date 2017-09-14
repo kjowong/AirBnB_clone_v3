@@ -94,10 +94,27 @@ def put_an_amenity(amenity_id):
     """
         Method to update an Amenity object
     """
-    pass
-    # if amenity_id not linked to any Amenity, raise 404 error
-    # use request.get_json to transform HTTP request to a dict
-    # if HTTP request not valid JSON, raise 400 error with message Not a JSON
+    # Retrieve the amenity
+    one_amenity = storage.get("Amenity", amenity_id)
+    # if the Amenity doesn't exist, raise 404 error
+    if one_amenity is None:
+        abort(404)
+    # Transform HTTP request body into a dictionary
+    json_data = request.get_json()
+    # if HTTP request not valid JSON, raise 400 error
+    if not json_data:
+        return jsonify({"message": "Not a JSON"})
+    # Create list of keys we don't want updated
+    ignore_keys = ['id', 'created_at', 'updated_at']
     # update Amenity obj with all key-value pairs of the dict
-    # ignore keys: id, created_at, updated_at
+    for key, value in json_data.items():
+        # Only update keys not found in ignore_keys
+        if key not in ignore_keys:
+            # Update the Amenity object
+            setattr(one_amenity, key, value)
+    # Save the Amenity
+    one_amenity.save()
+    # Call to_json on one_amenity
+    json_amenity = one_amenity.to_json()
     # Return Amenity object with status code 200
+    return jsonify(json_amenity), 200
