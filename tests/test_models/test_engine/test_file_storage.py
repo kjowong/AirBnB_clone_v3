@@ -70,15 +70,21 @@ class TestFileStorageDocs(unittest.TestCase):
 
     def test_doc_get(self):
         """... documentation for get function"""
-        expected = "\n            a method to retrieve one object\n            cls: string representating the class name\n            id: string representating the object ID\n        "
+        expected = "\n            a method to retrieve one object"
+        expected += "\n            cls: string representating the class name"
+        expected += "\n            id: string representating the object ID"
+        expected += "\n        "
         actual = FileStorage.get.__doc__
         self.assertEqual(expected, actual)
 
     def test_doc_count(self):
         """... documentation for count function"""
-        expected = "\n            a method to count the number of objects in storage\n            cls: string representing the class name\n        "
+        expected = "\n            a method to count the number of objects in "
+        expected += "storage\n            cls: string representing the class "
+        expected += "name\n        "
         actual = FileStorage.count.__doc__
         self.assertEqual(expected, actual)
+
 
 @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
 class TestBmFsInstances(unittest.TestCase):
@@ -173,6 +179,7 @@ class TestBmFsInstances(unittest.TestCase):
         self.bm_obj2.save()
         second_count = storage.count('BaseModel')
         self.assertTrue(first_count + 1, second_count)
+
 
 @unittest.skipIf(storage_type == 'db', 'skip if environ is db')
 class TestUserFsInstances(unittest.TestCase):
