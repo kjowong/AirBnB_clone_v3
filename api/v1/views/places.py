@@ -98,9 +98,23 @@ def put_a_place(place_id):
         Method to update a Place object
     """
     # if Place object doesn't exist, raise a 404 error
-    # use request.get_json() to transform HTTP request to a dictionary
-    # if HTTP request body is not valid JSON, raise a 400 error with message "Not a JSON"
-    # Create dictionary of keys to not update
+    one_place = storage.get("Place", place_id)
+    if not one_place:
+        abort(404)
+    # Transform HTTP request to a dictionary
+    json_data = request.get_json()
+    # if HTTP request body is not valid JSON, raise a 400 error
+    if not json_data:
+        return jsonify({"message": "Not a JSON"}), 400
+    # Create list of keys to not update
+    ignore_keys = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
     # Update Place object, ignoring the keys in ignore_keys
+    for key, value in json_data.items():
+        if key not in ignore_keys:
+            setattr(one_place, key, value)
+    # Save Place object
+    one_place.save()
+    # to_json the Place object
+    json_place = one_place.to_json()
     # Return Place object with status code 200
-    pass
+    return jsonify(json_place), 200
